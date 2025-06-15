@@ -41,7 +41,7 @@ class AskRequest(BaseModel):
     question: str
 
 # Serve frontend static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
 @app.get("/")
 def serve_frontend():
