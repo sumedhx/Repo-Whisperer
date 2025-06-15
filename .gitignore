@@ -6,6 +6,13 @@ __pycache__/
 venv/
 env/
 
+# Secrets
+.env
+
+#Test files
+test_embed.py
+test_fetch.py
+test.py
 
 # Logs
 logs
