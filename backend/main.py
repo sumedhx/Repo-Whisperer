@@ -15,7 +15,8 @@ import requests
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # your frontend origin
+    "http://localhost:5173",
+  "https://repo-whisperer.onrender.com/"  # your frontend origin
 ]
 
 app.add_middleware(
