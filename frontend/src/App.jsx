@@ -128,7 +128,7 @@ function App() {
 
   const BASE_URL = window.location.hostname.includes('localhost')
     ? 'http://localhost:5000'
-    : 'https://repo-whisperer.onrender.com';
+    : 'https://repo-whisperer-rrrp.vercel.app/';
 
   const handleFetchFiles = async () => {
     try {
