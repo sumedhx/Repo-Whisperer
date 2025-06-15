@@ -11,6 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.query.ask_question import answer_question, generate_answer_with_gemini
 import requests
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 
 app = FastAPI()
 
@@ -36,6 +39,22 @@ class AskRequest(BaseModel):
     repo: str
     filePath: str
     question: str
+
+# Serve frontend static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse("static/index.html")
+
+# For frontend routing (React Router fallback)
+@app.get("/{full_path:path}")
+def serve_spa(full_path: str):
+    path_to_file = os.path.join("static", full_path)
+    if os.path.isfile(path_to_file):
+        return FileResponse(path_to_file)
+    else:
+        return FileResponse("static/index.html")
 
 @app.post("/fetch-files")
 async def fetch_files(req: FetchFilesRequest):
