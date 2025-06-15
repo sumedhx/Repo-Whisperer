@@ -10,9 +10,9 @@ env/
 .env
 
 #Test files
-test_embed.py
-test_fetch.py
-test.py
+backend/test_embed.py
+backend/test_fetch.py
+backend/test.py
 
 # Logs
 logs
