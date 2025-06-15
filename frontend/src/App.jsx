@@ -127,7 +127,7 @@ function App() {
   const memoizedTree = useMemo(() => buildTreeFromPaths(repoTree), [repoTree]);
 
   const BASE_URL = window.location.hostname.includes('localhost')
-    ? 'http://localhost:8000'
+    ? 'http://localhost:5000'
     : 'https://repo-whisperer.onrender.com';
 
   const handleFetchFiles = async () => {
