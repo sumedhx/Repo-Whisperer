@@ -3,12 +3,12 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from ingest.fetch_repo import list_repo_files
-from ingest.chunk_and_embed import chunk_and_embed_file
+from backend.ingest.fetch_repo import list_repo_files
+from backend.ingest.chunk_and_embed import chunk_and_embed_file
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from query.ask_question import answer_question, generate_answer_with_gemini
+from backend.query.ask_question import answer_question, generate_answer_with_gemini
 import requests
 
 
