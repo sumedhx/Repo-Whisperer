@@ -126,13 +126,14 @@ function App() {
   const [repoTree, setRepoTree] = useState([]);
   const memoizedTree = useMemo(() => buildTreeFromPaths(repoTree), [repoTree]);
 
-
-  
+  const BASE_URL = window.location.hostname.includes('localhost')
+    ? 'http://localhost:8000'
+    : 'https://repo-whisperer.onrender.com';
 
   const handleFetchFiles = async () => {
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post('http://localhost:8000/fetch-files', {
+      const res = await axios.post(`${BASE_URL}/fetch-files`, {
         owner,
         repo,
       });
@@ -150,7 +151,7 @@ function App() {
     setLoading(true);
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post('http://localhost:8000/ask', {
+      const res = await axios.post(`${BASE_URL}/ask`, {
         owner,
         repo,
         filePath: selectedFile,
