@@ -4,7 +4,7 @@ import os
 import json
 import cohere
 from backend.ingest.token_utils import chunk_text
-from utils import embedding_filename
+from backend.utils import embedding_filename
 
 COHERE_API_KEY = '2BoD7ySAZAsLs6Yf3cokKVaeiLfijnNeBMlZptmp'
 co = cohere.Client(COHERE_API_KEY)
