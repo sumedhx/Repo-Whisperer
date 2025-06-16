@@ -3,7 +3,12 @@
 
 > Your friendly AI assistant for understanding GitHub repositories — just paste a repo URL, select a file, and ask questions!
 
-🔗 **Live Demo**: [https://repo-whisperer.vercel.app](https://repo-whisperer.vercel.app)
+---
+
+🌍  **Live Deployment**: [https://repo-whisperer.vercel.app](https://repo-whisperer.vercel.app)
+> 🕒 **Note:** The backend may take **a few seconds to wake up** if it's been idle (Render cold start).
+
+<br/>
 
 <img width="1422" alt="Screenshot 2025-06-16 at 10 41 18 PM" src="https://github.com/user-attachments/assets/dab26bd5-6564-4225-bd3d-fc8f20a37a6e" />
 
