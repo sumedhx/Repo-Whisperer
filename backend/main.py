@@ -15,7 +15,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-  "https://repo-whisperer-rrrp.vercel.app/"  # your frontend origin
+    "https://repo-whisperer.vercel.app"  # your frontend origin
 ]
 
 app.add_middleware(
