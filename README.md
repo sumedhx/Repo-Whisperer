@@ -3,7 +3,7 @@
 
 > Your friendly AI assistant for understanding GitHub repositories — just paste a repo URL, select a file, and ask questions!
 
-</br>
+🔗 **Live Demo**: [https://repo-whisperer.vercel.app](https://repo-whisperer.vercel.app)
 
 <img width="1422" alt="Screenshot 2025-06-16 at 10 41 18 PM" src="https://github.com/user-attachments/assets/dab26bd5-6564-4225-bd3d-fc8f20a37a6e" />
 
@@ -21,7 +21,7 @@
 
 
 
-The Output-
+## 📸 Example Output
 
 <div align="center">
   <img width="544" alt="Screenshot 2025-06-16 at 10 43 31 PM" src="https://github.com/user-attachments/assets/e260c3b9-1180-4bbd-871d-d5b652eff1a0" />
