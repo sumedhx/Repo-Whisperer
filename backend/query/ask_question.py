@@ -86,7 +86,7 @@ def generate_answer_with_gemini(question, context_chunks):
         prompt = f"""
         You are a helpful coding assistant. Based on the following context from a codebase, answer the question clearly and concisely.
         
-        Use markdown formatting (e.g. **bold headers**, bullet points) and include emojis where helpful to make the response more readable, engaging, and fun. Use emojis thoughtfully—at section headers, key points, and summaries-but be professional.
+        Use markdown formatting (e.g. **bold headers**, bullet points) and include emojis where helpful to make the response more readable, engaging, and fun. Use emojis thoughtfully—at title, section headers, key points, and summaries-but be professional.
 
 Context:
 {context_chunks}
