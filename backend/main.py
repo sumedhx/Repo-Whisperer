@@ -37,6 +37,13 @@ class AskRequest(BaseModel):
     question: str
 
 
+@app.get("/")
+def read_root():
+    return {
+        "status": "Backend is live",
+        "message": "Welcome to Repo Whisperer 🚀"
+    }
+
 @app.post("/fetch-files")
 async def fetch_files(req: FetchFilesRequest):
     try:
