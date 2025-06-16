@@ -38,21 +38,17 @@ def embed_question(question):
         return None
 
 
-def load_all_embeddings():
-    """
-    Load all chunk embeddings from the 'data/' folder
-    Returns: List of (chunk_text, embedding_vector) tuples
-    """
+def load_all_embeddings(filename):
+    filepath = os.path.join(DATA_DIR, filename)
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"{filepath} not found.")
     all_chunks = []
-    for filename in os.listdir(DATA_DIR):
-        if filename.endswith(".json"):
-            filepath = os.path.join(DATA_DIR, filename)
-            with open(filepath, "r") as f:
-                data = json.load(f)
-                for item in data:
-                    chunk = item["chunk"]
-                    embedding = item["embedding"]
-                    all_chunks.append((chunk, embedding))
+    with open(filepath, "r") as f:
+        data = json.load(f)
+        for item in data:
+            chunk = item["chunk"]
+            embedding = item["embedding"]
+            all_chunks.append((chunk, embedding))
     return all_chunks
 
 
@@ -65,6 +61,7 @@ def find_top_chunks(question_embedding, chunks_with_embeddings, top_k=3):
     chunk_texts = [item[0] for item in chunks_with_embeddings]
     chunk_vectors = [item[1] for item in chunks_with_embeddings]
 
+    # print("=======chunks_with_embeddings==", chunks_with_embeddings)
     similarities = cosine_similarity(
         [question_embedding],  # shape: (1, D)
         chunk_vectors          # shape: (N, D)
@@ -114,7 +111,7 @@ Question:
         
         
 
-def answer_question(user_question):
+def answer_question(user_question, filename):
     """
     Full pipeline:
     - Embed the question
@@ -128,7 +125,7 @@ def answer_question(user_question):
     if question_embedding is None:
         return "Error embedding your question."
 
-    chunks = load_all_embeddings()
+    chunks = load_all_embeddings(filename)
     if not chunks:
         return "No code chunks found to search."
 

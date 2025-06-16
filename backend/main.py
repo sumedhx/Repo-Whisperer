@@ -3,17 +3,13 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from backend.ingest.fetch_repo import list_repo_files
-from backend.ingest.chunk_and_embed import chunk_and_embed_file
+from ingest.fetch_repo import list_repo_files
+from ingest.chunk_and_embed import chunk_and_embed_file
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.query.ask_question import answer_question, generate_answer_with_gemini
+from query.ask_question import answer_question, generate_answer_with_gemini
 import requests
-
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-
 
 app = FastAPI()
 
@@ -40,21 +36,6 @@ class AskRequest(BaseModel):
     filePath: str
     question: str
 
-# Serve frontend static files
-app.mount("/static", StaticFiles(directory="backend/static"), name="static")
-
-@app.get("/")
-def serve_frontend():
-    return FileResponse("static/index.html")
-
-# For frontend routing (React Router fallback)
-@app.get("/{full_path:path}")
-def serve_spa(full_path: str):
-    path_to_file = os.path.join("static", full_path)
-    if os.path.isfile(path_to_file):
-        return FileResponse(path_to_file)
-    else:
-        return FileResponse("static/index.html")
 
 @app.post("/fetch-files")
 async def fetch_files(req: FetchFilesRequest):
@@ -76,10 +57,10 @@ async def ask_question(req: AskRequest):
 
         # Step 2: Chunk + Embed the file
         # chunk_and_embed_file(req.repo, req.filePath, file_content)
-        chunk_count = chunk_and_embed_file(req.repo, req.filePath, file_content)
+        chunk_count, filename = chunk_and_embed_file(req.repo, req.filePath, file_content)
 
         # Step 3: Perform semantic search over chunks
-        context_chunks = answer_question(req.question)
+        context_chunks = answer_question(req.question, filename)
 
         # Step 4: Send top chunks + question to Gemini to generate final answer
         final_answer = generate_answer_with_gemini(req.question, context_chunks)
@@ -93,4 +74,4 @@ async def ask_question(req: AskRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", reload=True)

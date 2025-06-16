@@ -126,14 +126,11 @@ function App() {
   const [repoTree, setRepoTree] = useState([]);
   const memoizedTree = useMemo(() => buildTreeFromPaths(repoTree), [repoTree]);
 
-  const BASE_URL = window.location.hostname.includes('localhost')
-    ? 'http://localhost:5000'
-    : 'https://repo-whisperer-rrrp.vercel.app/';
-
+  
   const handleFetchFiles = async () => {
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post(`${BASE_URL}/fetch-files`, {
+      const res = await axios.post(`http://localhost:8000/fetch-files`, {
         owner,
         repo,
       });
@@ -151,7 +148,7 @@ function App() {
     setLoading(true);
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post(`${BASE_URL}/ask`, {
+      const res = await axios.post(`http://localhost:8000/ask`, {
         owner,
         repo,
         filePath: selectedFile,

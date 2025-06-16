@@ -3,8 +3,8 @@
 import os
 import json
 import cohere
-from backend.ingest.token_utils import chunk_text
-from backend.utils import embedding_filename
+from ingest.token_utils import chunk_text
+from utils import embedding_filename
 
 COHERE_API_KEY = '2BoD7ySAZAsLs6Yf3cokKVaeiLfijnNeBMlZptmp'
 co = cohere.Client(COHERE_API_KEY)
@@ -56,6 +56,7 @@ def chunk_and_embed_file(repo_name, file_path, file_content):
 
     os.makedirs("data", exist_ok=True)
     filename = embedding_filename(repo_name, file_path)
+    print("Currently using file:", filename)
     filepath = os.path.join("data", filename)
 
     # Check if embeddings file already exists; if yes, skip re-embedding
@@ -63,7 +64,7 @@ def chunk_and_embed_file(repo_name, file_path, file_content):
         print(f"Embedding for {file_path} already exists at {filepath}. Skipping embedding.")
         with open(filepath, "r") as f:
             existing_data = json.load(f)
-        return len(existing_data)
+        return len(existing_data), filename
 
     # Call chunk_text with a larger chunk size if your function supports it,
     # or modify your chunk_text to increase chunk size (e.g., from 500 to 1000 tokens)
@@ -71,18 +72,18 @@ def chunk_and_embed_file(repo_name, file_path, file_content):
 
     if not chunks:
         print(f"No chunks generated for {file_path}. Skipping.")
-        return 0
+        return 0, filename
 
     # Preprocess chunks to reduce trivial or duplicate data before embedding
     chunks = preprocess_chunks(chunks)
     if not chunks:
         print(f"No valid chunks after preprocessing for {file_path}. Skipping.")
-        return 0
+        return 0, filename
 
     embeddings = embed_chunks(chunks)
     if not embeddings:
         print("No embeddings returned. Aborting.")
-        return 0
+        return 0, filename
 
     chunk_embeddings = []
     for chunk, embedding in zip(chunks, embeddings):
@@ -98,7 +99,7 @@ def chunk_and_embed_file(repo_name, file_path, file_content):
 
     print(f"Saved embeddings for {file_path} to {filepath}")
     
-    return chunk_count
+    return chunk_count, filename
 
 
 
