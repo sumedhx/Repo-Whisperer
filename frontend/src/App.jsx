@@ -126,11 +126,12 @@ function App() {
   const [repoTree, setRepoTree] = useState([]);
   const memoizedTree = useMemo(() => buildTreeFromPaths(repoTree), [repoTree]);
 
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
   
   const handleFetchFiles = async () => {
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post(`http://localhost:8000/fetch-files`, {
+      const res = await axios.post(`${API_BASE}/fetch-files`, {
         owner,
         repo,
       });
@@ -148,7 +149,7 @@ function App() {
     setLoading(true);
     try {
       const [_, owner, repo] = repoUrl.split('/').slice(-3);
-      const res = await axios.post(`http://localhost:8000/ask`, {
+      const res = await axios.post(`${API_BASE}/ask`, {
         owner,
         repo,
         filePath: selectedFile,
