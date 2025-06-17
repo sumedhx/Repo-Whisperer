@@ -292,10 +292,15 @@ function App() {
         maxWidth={false}
         disableGutters
         sx={{
-          height: '100vh',
+          // height: '100vh',
+          height:{
+            xs:'100vh',
+            sm:'100vh'
+          },
           bgcolor: 'ThreeDDarkShadow',
           p: {
-            sx:0,
+            xs:0,
+            sm:1,
             md:2
           },
           // height: {
@@ -338,7 +343,6 @@ function App() {
               <div
                 className="answer"
                 style={{
-                  height:'80%',
                   wordWrap: 'break-word',
                   overflowWrap: 'break-word',
                   whiteSpace: 'pre-wrap', // this is often the key one!
@@ -347,7 +351,7 @@ function App() {
                   paddingLeft:'4rem'
                 }}
               >
-                {answer && <h2 style={{ color: 'black', marginBottom: '1.5rem', backgroundColor: '#f4f4f4', padding: '.3rem', paddingLeft: '1rem', borderRadius: '10px' }}>❝ {questionAsked} ❞</h2>}
+                {answer && <h2 className="question" style={{ color: 'black', marginBottom: '1.5rem', backgroundColor: '#f4f4f4', padding: '.3rem', paddingLeft: '1rem', borderRadius: '10px' }}>❝ {questionAsked} ❞</h2>}
                 <ReactMarkdown
                   components={{
                     code({node, inline, className, children, ...props}) {
@@ -464,9 +468,14 @@ function App() {
             </Box>
           </Box>
           
+          <p className="created-by-mobile" >Created by {''}
+            <a href="https://github.com/sumedhx/repo-whisperer" target='_blank' rel="noopener noreferrer">
+              Sumedhx
+            </a>
+          </p>
         </Container>
         
-        <Container className="sidebar" sx={{ flex:3, bgcolor:'#f4f4f4'}} disableGutters>
+        <Container className="sidebar" sx={{ flex:3, bgcolor:'#f4f4f4', position:'relative'}} disableGutters>
           <header><h3>File Struture</h3>  </header>
           <SimpleTreeView
             aria-label="repo file system navigator"
@@ -474,10 +483,15 @@ function App() {
               expandIcon: ExpandMoreIcon,
               collapseIcon: ChevronRightIcon,
             }}
-            sx={{ overflowY: 'auto', p: 2, height: 'calc(100% - 48px)', overflowX:'scroll'}}
+            sx={{ overflowY: 'auto', p: '2rem', height: '85%', overflowX:'scroll'}}
           >
             {memoizedTree}
           </SimpleTreeView>
+          <p className="created-by" >Created by {''}
+            <a href="https://github.com/sumedhx/repo-whisperer" target='_blank' rel="noopener noreferrer">
+              Sumedhx
+            </a>
+          </p>
         </Container>
         
       </Container>
