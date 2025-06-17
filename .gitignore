@@ -1,6 +1,9 @@
 #Generated files
 data/
 
+#Temporary files
+temp.jsx
+
 # Ignore Python cache
 __pycache__/
 *.py[cod]
