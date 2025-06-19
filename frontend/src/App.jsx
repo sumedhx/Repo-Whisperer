@@ -283,6 +283,14 @@ function App() {
     }
   }
 
+  const repoOptions = [
+      'https://github.com/sumedhx/LinkedIn-Content-Extractor',
+      'https://github.com/excalidraw/excalidraw',
+      'https://github.com/sumedhx/IceCreamRevenue-LinearRegressionModel',
+      'https://github.com/vercel/next.js',
+      'https://github.com/sumedhx/TiptapEditor-Custom-URL-Shortener',
+      'https://github.com/sumedhx/notifyme',
+    ];
   
 
   return (
@@ -316,14 +324,58 @@ function App() {
         <Container className="main" sx={{ flex: 7, bgcolor: 'white',height:'100%' }} disableGutters>
           <header>
             <h3>Repo Whisperer</h3>
-              <TextField 
-                id="standard-basic" variant="standard" 
-                InputProps={{ disableUnderline: true }} 
-                placeholder="Repository URL"
-                sx={{ width:'60%', height:'80%',px:2, borderRadius:2,bgcolor:'#f4f4f4', justifyContent:'center'}}
-                value={repoUrl}
-                onChange={(e) => setRepoUrl(e.target.value)}
-              />
+            <Autocomplete
+              freeSolo
+              options={repoOptions}
+              value={repoUrl}
+              onChange={(event, newValue) => setRepoUrl(newValue)}
+              onInputChange={(event, newInputValue) => setRepoUrl(newInputValue)}
+              getOptionLabel={(option) => {
+                // Show only the path from the full URL
+                try {
+                  const url = new URL(option);
+                  return url.pathname; // e.g. /user/repo
+                } catch {
+                  return option; // fallback if it's not a valid URL
+                }
+              }}
+              renderOption={(props, option) => {
+                let label = option;
+                try {
+                  const url = new URL(option);
+                  label = url.pathname;
+                } catch {
+                  console.warn('Invalid URL:', option);
+                }
+            
+                return (
+                  <li {...props} style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {label}
+                  </li>
+                );
+              }}
+              sx={{
+                width: '60%',
+                height: '80%',
+                px: 1,
+                borderRadius: 2,
+                bgcolor: '#f4f4f4',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder="Repository URL"
+                  InputProps={{
+                    ...params.InputProps,
+                    disableUnderline: true,
+                  }}
+                />
+              )}
+            />
+
             <Button variant="contained" size='large' sx={{ textTransform: 'none' }} onClick={handleFetchFiles}>Fetch Tree</Button>
           </header>
           <Box sx={{
