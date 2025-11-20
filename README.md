@@ -5,7 +5,7 @@
 
 ---
 
-🌍  **Live Deployment**: [https://repo-whisperer.vercel.app](https://repo-whisperer.vercel.app)
+🌍  **Live Deployment**: [https://repo-whisperer.vercel.app](https://repo-whisperer.vercel.app)  
 🫙  **Backend**: [Start the backend Instance](https://repo-whisperer-api.onrender.com/)
 > 🕒 **Note:** The backend may take **a few seconds to wake up** if it's been idle (Render cold start).
 
