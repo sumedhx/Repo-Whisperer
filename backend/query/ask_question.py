@@ -98,7 +98,7 @@ Question:
         response = co.chat(
             message=question,
             preamble=prompt,
-            model="command-r-large",
+            model="command-a-vision",
             temperature=0.3,
             chat_history=[],
         )
