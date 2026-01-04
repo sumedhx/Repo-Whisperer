@@ -79,6 +79,12 @@ async def ask_question(req: AskRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+#For UptimeRobot - Ping Service
+@app.post("/health")
+def health_check():
+    return {"status": "ok"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", reload=True)
