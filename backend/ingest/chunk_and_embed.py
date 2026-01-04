@@ -6,8 +6,7 @@ import cohere
 from ingest.token_utils import chunk_text
 from utils import embedding_filename
 
-COHERE_API_KEY = '2BoD7ySAZAsLs6Yf3cokKVaeiLfijnNeBMlZptmp'
-co = cohere.Client(COHERE_API_KEY)
+co = cohere.Client(os.environ["COHERE_API_KEY"])
 
 def preprocess_chunks(chunks):
     """
