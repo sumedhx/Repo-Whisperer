@@ -81,7 +81,7 @@ async def ask_question(req: AskRequest):
 
 
 #For UptimeRobot - Ping Service
-@app.post("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health_check():
     return {"status": "ok"}
 
