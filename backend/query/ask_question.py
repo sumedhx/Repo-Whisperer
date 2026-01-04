@@ -12,12 +12,8 @@ from google.api_core.exceptions import ResourceExhausted
 load_dotenv()
 
 # Init Cohere
-COHERE_API_KEY = '2BoD7ySAZAsLs6Yf3cokKVaeiLfijnNeBMlZptmp'
-co = cohere.Client(COHERE_API_KEY)
+co = cohere.Client(os.environ["COHERE_API_KEY"])
 
-# Init Gemini
-GEMINI_API_KEY = 'AIzaSyCfziDjvhQ3JKkDlDnVDw0CyO679CpxD-4'
-genai.configure(api_key=GEMINI_API_KEY)
 
 DATA_DIR = "data"  # Folder where chunk embeddings are stored
 
